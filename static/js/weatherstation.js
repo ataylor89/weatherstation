@@ -7,6 +7,7 @@ $(document).ready(function() {
         var longitude = $('input[name="longitude"]').val();
         var url = "/weather_report/" + latitude + "," + longitude;
         $.get(url, function(data) {
+            $('#weathertable tr:not(:first-child)').remove();
             console.dir(data);
             todays_report = data[today];
             for (time in todays_report) {
