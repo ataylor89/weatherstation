@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Weather Station</title>
+        <script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.6.0.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/moment.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/weatherstation.js')}}"></script>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}"/>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/weatherstation.css')}}"/>
+    </head>
+    <body>
+        <div id="main-container" class="container-lg">
+            <h1>The weather station</h1>
+            <h3 id="today"></h3>
+            <form id="weatherform">
+                <label for="latitude">Latitude:&nbsp;</label>
+                <input name="latitude" type="number" min="0" max="90" step="any" required>
+                <label for="longitude">Longitude:&nbsp;</label>
+                <input name="longitude" type="number" min="-180" max="180" step="any" required>
+                <br/>
+                <button type="submit">Get weather report</button>
+            </form>
+            <table id="weathertable" class="table table-bordered table-hover" style="display: none">
+                <tr>
+                    <th>Time</th>
+                    <th>Temp (F)</th>
+                    <th>Temp (C)</th>
+                    <th>Relative Humidity (%)</th>
+                    <th>Chance of Rain (%)</th>
+                    <th>Dewpoint (F)</th>
+                    <th>Dewpoint (C)</th>
+                    <th>Wind Direction (&deg;)</th>
+                    <th>Wind Speed (km/h)</th>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
