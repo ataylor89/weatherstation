@@ -36,15 +36,21 @@ $(document).ready(function() {
                 var td1 = $("<td>");
                 if (todays_report[time]['temp']['fahrenheit'] && todays_report[time]['temp']['celsius'])
                     td1.html(todays_report[time]['temp']['fahrenheit'] + '&deg;F (' + todays_report[time]['temp']['celsius'] + '&deg;C)');
-                var td2 = $("<td>").html(todays_report[time]['relative_humidity']['percent']);
-                var td3 = $("<td>").html(todays_report[time]['chance_of_rain']['percent']);
+                var td2 = $("<td>");
+                if (todays_report[time]['relative_humidity']['percent'])
+                    td2.html(todays_report[time]['relative_humidity']['percent'] + '%');
+                var td3 = $("<td>");
+                if (todays_report[time]['chance_of_rain']['percent'])
+                    td3.html(todays_report[time]['chance_of_rain']['percent'] + '%');
                 var td4 = $("<td>");
                 if (todays_report[time]['dewpoint']['fahrenheit'] && todays_report[time]['dewpoint']['celsius'])
                     td4.html(todays_report[time]['dewpoint']['fahrenheit'] + '&deg;F (' + todays_report[time]['dewpoint']['celsius'] + '&deg;C)');                
                 var td5 = $("<td>");
                 if (todays_report[time]['wind_direction']['angle'])
                     td5.html(todays_report[time]['wind_direction']['angle'] + '&deg;');
-                var td6 = $("<td>").html(todays_report[time]['wind_speed']['speed']);
+                var td6 = $("<td>");
+                if (todays_report[time]['wind_speed']['mph'])
+                    td6.html(todays_report[time]['wind_speed']['mph'] + ' mph');
                 tr.append(td0);
                 tr.append(td1);
                 tr.append(td2);

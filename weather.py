@@ -53,9 +53,7 @@ def get_weather_report(latitude, longitude):
     weather_data = resp.json()['properties']['weather']
     windchill_data = resp.json()['properties']['windChill']
     windspeed_data = resp.json()['properties']['windSpeed']
-    windspeed_uom = parse_uom(windspeed_data['uom'])
     winddirection_data = resp.json()['properties']['windDirection']
-    winddirection_uom = parse_uom(winddirection_data['uom'])
     for reading in temp_data['values']:
         time_data = parse_valid_time(reading['validTime'])
         date = time_data['date']
@@ -116,8 +114,8 @@ def get_weather_report(latitude, longitude):
         time = time_data['time']
         prepare_entry(weather_report, date, time)
         if reading['value']:
-            weather_report[date][time]['wind_speed']['uom'] = windspeed_uom
-            weather_report[date][time]['wind_speed']['speed'] = round(reading['value'], 3)
+            weather_report[date][time]['wind_speed']['kmph'] = round(reading['value'], 3)
+            weather_report[date][time]['wind_speed']['mph'] = kilometers_to_miles(reading['value'])
             weather_report[date][time]['wind_speed']['period'] = time_data['period']
     for reading in winddirection_data['values']:
         time_data = parse_valid_time(reading['validTime'])
@@ -125,7 +123,6 @@ def get_weather_report(latitude, longitude):
         time = time_data['time']
         prepare_entry(weather_report, date, time)
         if reading['value']:
-            weather_report[date][time]['wind_direction']['uom'] = winddirection_uom
             weather_report[date][time]['wind_direction']['angle'] = reading['value']
             weather_report[date][time]['wind_direction']['period'] = time_data['period']
     return weather_report
@@ -163,12 +160,12 @@ def prepare_entry(weather_report, date, time):
                 'period': None
             },
             'wind_speed': {
-                'uom': None,
-                'speed': None,
+                'kmph': None,
+                'mph': None,
                 'period': None
             },
             'wind_direction': {
-                'uom': None,
+                'uom': 'degrees',
                 'angle': None,
                 'period': None
             }
@@ -186,12 +183,8 @@ def parse_valid_time(valid_time):
 def celsius_to_fahrenheit(celsius):
     return celsius * 1.8 + 32
 
-def parse_uom(uom):
-    if uom == 'wmoUnit:km_h-1':
-        return 'km/h'
-    if uom == 'wmoUnit:degree_(angle)':
-        return 'degrees'
-    return None
+def kilometers_to_miles(km):
+    return round(km * 0.62137119, 2)
 
 def geocode(address):
     if not GOOGLE_API_KEY:
