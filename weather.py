@@ -196,7 +196,7 @@ def parse_uom(uom):
 def geocode(address):
     if not GOOGLE_API_KEY:
         logger.info("A GOOGLE_API_KEY is needed in the weather.ini file")
-        return
+        return None
     try:
         url = f"https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={GOOGLE_API_KEY}"
         resp = requests.get(url)
