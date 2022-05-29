@@ -15,3 +15,5 @@ Once you have your Google API key, you can insert your key into the weather.ini 
 
 ## Looking up coordinates for a city
 When you're using the webapp, you can enter a city name in the city input field. After entering a city name, you can simply press the "Enter" key (keyCode=13) to look up the city's coordinates. If the search is successful, the city's coordinates will be filled out in the latitude and longitude fields.
+
+In order to use this feature, a GOOGLE_API_KEY must be supplied in the weather.ini file.
