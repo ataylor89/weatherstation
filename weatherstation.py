@@ -3,6 +3,11 @@ import weather
 
 app = Flask(__name__)
 
+@app.route("/geocode/<address>", methods=["GET"])
+def geocode(address):
+    coords = weather.geocode(address)
+    return jsonify(coords)
+
 @app.route("/weather_report/<latitude>,<longitude>", methods=["GET"])
 def weather_report(latitude, longitude):
     weather_report = weather.get_weather_report_for_today(latitude, longitude)

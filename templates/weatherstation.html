@@ -13,9 +13,11 @@
             <h1>The weather station</h1>
             <h3 id="today"></h3>
             <form id="weatherform">
-                <label for="latitude">Latitude:&nbsp;</label>
+                <label for="address">City:</label>
+                <input name="city" type="text">
+                <label for="latitude">Latitude:</label>
                 <input name="latitude" type="number" min="0" max="90" step="any" required>
-                <label for="longitude">Longitude:&nbsp;</label>
+                <label for="longitude">Longitude:</label>
                 <input name="longitude" type="number" min="-180" max="180" step="any" required>
                 <br/>
                 <button type="submit" class="btn btn-primary">Get weather report</button>

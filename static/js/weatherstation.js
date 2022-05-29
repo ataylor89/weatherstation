@@ -1,6 +1,25 @@
 $(document).ready(function() {
     var today = moment().format("YYYY-MM-DD");
     $("#today").html("Today is " + moment().format("dddd MMMM Do YYYY"));
+    $('input[name="city"]').on('keydown', function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            var city = $(this).val();
+            if (city) {
+                var url = '/geocode/' + city;
+                $.get(url, function(data) {
+                    if (data) {
+                        var latitude = data['latitude'];
+                        var longitude = data['longitude'];
+                        var location = data['address'];
+                        $('input[name="city"]').val(location);
+                        $('input[name="latitude"]').val(latitude);
+                        $('input[name="longitude"]').val(longitude);
+                    }
+                });
+            }
+        }
+    });
     $("#weatherform").on('submit', function(e) {
         e.preventDefault();
         var latitude = $('input[name="latitude"]').val();
@@ -35,5 +54,5 @@ $(document).ready(function() {
             }
             $('#weathertable').show();
         });
-    })
+    });
 });

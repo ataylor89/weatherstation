@@ -3,6 +3,14 @@ import requests
 from datetime import datetime
 from dateutil import parser
 import pprint as pp
+import configparser
+import logging
+
+logger = logging.getLogger()
+config = configparser.ConfigParser()
+config.read('weather.ini')
+GOOGLE_API_KEY = config.get('DEFAULT', 'GOOGLE_API_KEY', fallback=None)
+logger.info("Using Google API key: %s" %GOOGLE_API_KEY)
 
 def get_weather_report_for_today(latitude, longitude):
     weather_report = {}
@@ -183,6 +191,24 @@ def parse_uom(uom):
         return 'km/h'
     if uom == 'wmoUnit:degree_(angle)':
         return 'degrees'
+    return None
+
+def geocode(address):
+    if not GOOGLE_API_KEY:
+        logger.info("A GOOGLE_API_KEY is needed in the weather.ini file")
+        return
+    try:
+        url = f"https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={GOOGLE_API_KEY}"
+        resp = requests.get(url)
+        data = resp.json()
+        if data['status'] == 'OK' and len(data['results']) > 0:
+            return {
+                'address': data['results'][0]['formatted_address'],
+                'latitude': data['results'][0]['geometry']['location']['lat'],
+                'longitude': data['results'][0]['geometry']['location']['lng']
+            }
+    except:
+        logger.error("Error calling the Google Geocoding API web service")
     return None
 
 def main():
