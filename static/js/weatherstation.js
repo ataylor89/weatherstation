@@ -33,14 +33,16 @@ $(document).ready(function() {
                 var time_formatted = moment(time, "HH:mm:ss").format("h a");
                 var tr = $("<tr>");
                 var td0 = $("<td>").html(time_formatted);
-                var td1 = $("<td>").html(todays_report[time]['temp']['fahrenheit']);
-                var td2 = $("<td>").html(todays_report[time]['temp']['celsius']);
-                var td3 = $("<td>").html(todays_report[time]['relative_humidity']['percent']);
-                var td4 = $("<td>").html(todays_report[time]['chance_of_rain']['percent']);
-                var td5 = $("<td>").html(todays_report[time]['dewpoint']['fahrenheit']);
-                var td6 = $("<td>").html(todays_report[time]['dewpoint']['celsius']);
-                var td7 = $("<td>").html(todays_report[time]['wind_direction']['angle']);
-                var td8 = $("<td>").html(todays_report[time]['wind_speed']['speed']);
+                var td1 = $("<td>");
+                if (todays_report[time]['temp']['fahrenheit'] && todays_report[time]['temp']['celsius'])
+                    td1.html(todays_report[time]['temp']['fahrenheit'] + '&deg;F (' + todays_report[time]['temp']['celsius'] + '&deg;C)');
+                var td2 = $("<td>").html(todays_report[time]['relative_humidity']['percent']);
+                var td3 = $("<td>").html(todays_report[time]['chance_of_rain']['percent']);
+                var td4 = $("<td>");
+                if (todays_report[time]['dewpoint']['fahrenheit'] && todays_report[time]['dewpoint']['celsius'])
+                    td4.html(todays_report[time]['dewpoint']['fahrenheit'] + '&deg;F (' + todays_report[time]['dewpoint']['celsius'] + '&deg;C)');                
+                var td5 = $("<td>").html(todays_report[time]['wind_direction']['angle']);
+                var td6 = $("<td>").html(todays_report[time]['wind_speed']['speed']);
                 tr.append(td0);
                 tr.append(td1);
                 tr.append(td2);
@@ -48,8 +50,6 @@ $(document).ready(function() {
                 tr.append(td4);
                 tr.append(td5);
                 tr.append(td6);
-                tr.append(td7);
-                tr.append(td8);
                 $('#weathertable').append(tr);
             }
             $('#weathertable').show();
