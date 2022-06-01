@@ -10,7 +10,6 @@ logger = logging.getLogger()
 config = configparser.ConfigParser()
 config.read('weather.ini')
 GOOGLE_API_KEY = config.get('DEFAULT', 'GOOGLE_API_KEY', fallback=None)
-logger.info("Using Google API key: %s" %GOOGLE_API_KEY)
 
 def get_weather_report_for_today(latitude, longitude):
     weather_report = {}
