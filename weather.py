@@ -203,15 +203,3 @@ def geocode(address):
     except:
         logger.error("Error calling the Google Geocoding API web service")
     return None
-
-def main():
-    if len(sys.argv) < 3:
-        print("Usage: python %s <latitude> <longitude>" %sys.argv[0])
-        return
-    latitude = float(sys.argv[1])
-    longitude = float(sys.argv[2])
-    weather_report = get_weather_report_for_today(latitude, longitude)
-    pp.pprint(weather_report)
-
-if __name__ == '__main__':
-    main()
